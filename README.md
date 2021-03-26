@@ -11,7 +11,7 @@
     subFeatures: [
       {
         name: 'Sub-feature A-1',
-        cost: 0,
+        cost: 20,
         subFeatures: []
       },
       {
@@ -32,19 +32,19 @@
       },
       {
         name: 'Sub-feature A-3',
-        cost: 0,
+        cost: 30,
         subFeatures: []
       }
     ]
   },
   {
     name: 'Feature B',
-    cost: 0,
+    cost: 30,
     subFeatures: []
   },
   {
     name: 'Feature C',
-    cost: 0,
+    cost: 40,
     subFeatures: []
   }
 ]
