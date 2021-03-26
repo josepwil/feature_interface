@@ -1,12 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 import FeaturesList from './FeaturesList';
 
 function App() {
   // mock data
-  const features = [
+  const featureData = [
     {
       name: 'Feature A',
       cost: 0,
@@ -50,10 +49,11 @@ function App() {
       subFeatures: []
     }
   ]
+
+  const [state, setState] = useState({
+    selectedFeatures: {}
+  })
   
-
-
-
   return (
     <div className="App">
       <header>
@@ -61,7 +61,11 @@ function App() {
       </header>
 
       <main>
-        <FeaturesList />
+        <FeaturesList 
+          features={featureData}
+          onChange={(selectedFeatures: any) => setState({selectedFeatures})}
+          selectedFeatures={state.selectedFeatures}
+        />
       </main>
 
       <footer>
