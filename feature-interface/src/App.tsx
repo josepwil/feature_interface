@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import FeaturesList from './FeaturesList';
+
 function App() {
   // mock data
   const features = [
@@ -55,8 +57,12 @@ function App() {
   return (
     <div className="App">
       <header>
-      <h3>Subscription Preferences</h3>
+        <h3>Subscription Preferences</h3>
       </header>
+
+      <main>
+        <FeaturesList />
+      </main>
 
       <footer>
         <h3>Total: $__ / mo</h3>
