@@ -53,6 +53,8 @@ function App() {
   const [state, setState] = useState({
     selectedFeatures: {}
   })
+
+  console.log(state)
   
   return (
     <div className="App">
