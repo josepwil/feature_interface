@@ -5,10 +5,13 @@ export interface IFeature {
 }
 
 export interface IProps {
-  features: IFeature[]
+  features: IFeature[];
+  selectedFeatures: any;
+  onChange: any
 }
 
 export interface ICheckbox {
   selected: boolean;
   label: string;
+  onChange: any
 }
