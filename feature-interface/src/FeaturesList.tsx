@@ -23,7 +23,8 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange }
         <ul>
           <Checkbox 
             label={feature.name}
-            selected={true}
+            cost={feature.cost}
+            selected={selectedFeatures[feature.name]}
             onChange={() => handleCheckBoxClicked(feature.name)}
           />
           {(feature.subFeatures.length > 0 && selectedFeatures[feature.name]) &&

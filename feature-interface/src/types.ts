@@ -13,5 +13,6 @@ export interface IProps {
 export interface ICheckbox {
   selected: boolean;
   label: string;
+  cost: number;
   onChange: any
 }
