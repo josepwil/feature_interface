@@ -2,11 +2,13 @@ import { ICheckbox } from './types'
 
 const Checkbox: React.FC<ICheckbox> = ({selected, label, cost, onChange}) => {
   return (
-    <div>
+    <div className='checkbox'>
       <div 
-      style={{width: '20px', height: '20px', backgroundColor: 'blue'}}
+      className={'unchecked'}
       onClick={() => onChange(!selected)} 
-      />
+      >
+        {selected && <div className={'checked'} />}
+      </div>
       <div>{label} ({cost ? `$${cost}` : '-'})</div>
     </div>
   )
