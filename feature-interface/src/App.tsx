@@ -12,7 +12,7 @@ function App() {
       subFeatures: [
         {
           name: 'Sub-feature A-1',
-          cost: 20,
+          cost: 0,
           subFeatures: []
         },
         {
@@ -33,29 +33,29 @@ function App() {
         },
         {
           name: 'Sub-feature A-3',
-          cost: 30,
+          cost: 0,
           subFeatures: []
         }
       ]
     },
     {
       name: 'Feature B',
-      cost: 30,
+      cost: 0,
       subFeatures: []
     },
     {
       name: 'Feature C',
-      cost: 40,
+      cost: 0,
       subFeatures: []
     }
   ]
-
   const [state, setState] = useState({
-    selectedFeatures: {}
+    selectedFeatures: {},
   })
+  const [costs, setCosts] = useState(featureData.map(x => x.cost))
+  const [totalCost, setTotalCost] = useState(0)
 
-  console.log(state)
-  
+
   return (
     <div className="App">
       <header>
@@ -67,11 +67,15 @@ function App() {
           features={featureData}
           onChange={(selectedFeatures: any) => setState({selectedFeatures})}
           selectedFeatures={state.selectedFeatures}
+          parent={null}
+          costs={costs}
+          updateCosts={(costs: number[]) => setCosts(costs)}
+          setTotalCost={setTotalCost}
         />
       </main>
 
       <footer>
-        <h3>Total: $__ / mo</h3>
+        <h3>Total: ${totalCost} / mo</h3>
         <button>Save</button>
       </footer>
       
