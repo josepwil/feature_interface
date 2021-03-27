@@ -3,22 +3,32 @@ import { useState } from 'react'
 import { IFeature, IProps } from './types'
 import Checkbox from './Checkbox'
 
-const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange }) => {
+const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, parent, costs, updateCosts, setTotalCost }) => {
+  const updateCost = (index: number, cost: number) => {
+    const costsCopy = [...costs]
+    costsCopy[index] = costsCopy[index] + cost
+    updateCosts(costsCopy)
+  }
 
-  const [cost, setCost] = useState(features.map(x => x.cost))
-  console.log('I am cost', cost)
-
-  const handleCheckBoxClicked = (featureName: string) => {
+  const handleCheckBoxClicked = (featureName: string, cost: number) => {
     if(selectedFeatures[featureName]) {
       delete selectedFeatures[featureName]
+      setTotalCost((prevTotal: number) => {
+        return prevTotal - cost;
+      })
+
     } else {
-      selectedFeatures[featureName] = {}
+      selectedFeatures[featureName] = {cost};
+      setTotalCost((prevTotal: number) => {
+        return prevTotal + cost;
+      })
     }
+
+    updateCost(parent, cost)
     onChange(selectedFeatures)
   }
 
-  const handleSubFeaturesListChange = (featureName: string, subSelections: any) => {
-    console.log('I am sub selections ', subSelections)
+  const handleSubFeaturesListChange = (featureName: string, subSelections: any, index: number) => {
     selectedFeatures[featureName] = subSelections;
     onChange(selectedFeatures)
   }
@@ -26,19 +36,22 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange }
   return (
     <div>
       {features.map((feature: IFeature, index: number) => (
-        <ul>
+        <ul key={index}>
           <Checkbox 
-            key={index}
             label={feature.name}
-            cost={cost[index]}
+            cost={costs[index]}
             selected={selectedFeatures[feature.name]}
-            onChange={() => handleCheckBoxClicked(feature.name)}
+            onChange={() => handleCheckBoxClicked(feature.name, costs[index])}
           />
           {(feature.subFeatures.length > 0 && selectedFeatures[feature.name]) &&
             <FeaturesList 
               features={feature.subFeatures}
               selectedFeatures={selectedFeatures[feature.name]}
-              onChange={(subSelections: any) => handleSubFeaturesListChange(feature.name, subSelections)}
+              onChange={(subSelections: any) => handleSubFeaturesListChange(feature.name, subSelections, index)}
+              parent={index}
+              costs = {feature.subFeatures.map(x => x.cost)}
+              updateCosts={(costsCopy: any) => updateCosts(costsCopy)}
+              setTotalCost={setTotalCost}
             />
           }
         </ul>
