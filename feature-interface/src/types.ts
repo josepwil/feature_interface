@@ -7,7 +7,11 @@ export interface IFeature {
 export interface IProps {
   features: IFeature[];
   selectedFeatures: any;
-  onChange: any
+  onChange: any;
+  parent: any;
+  costs: any;
+  updateCosts: any;
+  setTotalCost: any;
 }
 
 export interface ICheckbox {
