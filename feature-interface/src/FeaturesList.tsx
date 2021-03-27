@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { IFeature, IProps } from './types'
 import Checkbox from './Checkbox'
 
@@ -34,7 +32,7 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
   }
 
   return (
-    <div>
+    <div className='features'>
       {features.map((feature: IFeature, index: number) => (
         <ul key={index}>
           <Checkbox 
