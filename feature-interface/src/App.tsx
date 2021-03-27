@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.scss';
 
 import FeaturesList from './FeaturesList';
@@ -54,6 +54,34 @@ function App() {
   })
   const [costs, setCosts] = useState(featureData.map(x => x.cost))
   const [totalCost, setTotalCost] = useState(0)
+
+  useEffect(() => {
+    function flatObject(obj: any) {
+      const flatObject: any = {};
+      const path: string[] = [];
+  
+      function dig(obj: any) {
+          if (obj !== Object(obj))
+              return flatObject[path.join('.')] = obj;
+      
+          for (let key in obj) {
+              path.push(key);
+              dig(obj[key]);
+              path.pop();
+          }
+      }
+      dig(obj);
+      return flatObject;
+  }
+  const flatSelectedFeatures = flatObject(state.selectedFeatures)
+  let newTotal = 0;
+  for (const key in flatSelectedFeatures) {
+    newTotal += flatSelectedFeatures[key]
+  }
+
+  setTotalCost(newTotal)
+    
+  }, [state])
 
 
   return (
