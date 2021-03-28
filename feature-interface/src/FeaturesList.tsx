@@ -49,7 +49,7 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
               selectedFeatures={selectedFeatures[feature.name]}
               onChange={(subSelections: any) => handleSubFeaturesListChange(feature.name, subSelections, index)}
               costs = {feature.subFeatures.map(x => x.cost)}
-              updateCosts={(costsCopy: any) => updateCosts(costsCopy)}
+              updateCosts={(costsCopy: number[]) => updateCosts(costsCopy)}
             />
           }
         </ul>

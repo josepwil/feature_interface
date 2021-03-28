@@ -7,14 +7,14 @@ export interface IFeature {
 export interface IProps {
   features: IFeature[];
   selectedFeatures: any;
-  onChange: any;
+  onChange: (Function);
   costs: number[];
-  updateCosts: any;
+  updateCosts: (Function);
 }
 
 export interface ICheckbox {
   selected: boolean;
   label: string;
   cost: number;
-  onChange: any;
+  onChange: (Function);
 }
