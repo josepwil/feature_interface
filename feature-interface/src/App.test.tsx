@@ -10,11 +10,11 @@ describe('Application', () => {
   });
 
   it('renders subfeatures when a feature is selected', async () => {
-    const { container } = render(<App />)
-    const checkboxes = getAllByTestId(container, /checkbox-id/i)
-    const FeatureA = checkboxes[0]
-    fireEvent.click(FeatureA)
-    await waitFor(() => getByText(container, /Sub-feature A-1/i))
+    const { container } = render(<App />);
+    const checkboxes = getAllByTestId(container, /checkbox-id/i);
+    const FeatureA = checkboxes[0];
+    fireEvent.click(FeatureA);
+    await waitFor(() => getByText(container, /Sub-feature A-1/i));
   });
 })
 
