@@ -4,6 +4,7 @@ const Checkbox: React.FC<ICheckbox> = ({selected, label, cost, onChange}) => {
   return (
     <div className='checkbox'>
       <div 
+      data-testid='checkbox-id'
       className={'unchecked'}
       onClick={() => onChange(!selected)} 
       >
