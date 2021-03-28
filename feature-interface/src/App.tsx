@@ -11,7 +11,7 @@ function App() {
       subFeatures: [
         {
           name: 'Sub-feature A-1',
-          cost: 0,
+          cost: 15,
           subFeatures: []
         },
         {
@@ -32,7 +32,7 @@ function App() {
         },
         {
           name: 'Sub-feature A-3',
-          cost: 0,
+          cost: 20,
           subFeatures: []
         }
       ]
