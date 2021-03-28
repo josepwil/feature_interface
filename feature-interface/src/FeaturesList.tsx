@@ -1,7 +1,7 @@
 import { IFeature, IProps } from './types'
 import Checkbox from './Checkbox'
 
-const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, parent, costs, updateCosts, setTotalCost }) => {
+const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, parent, costs, updateCosts }) => {
   const updateCost = (index: number, cost: number) => {
     const costsCopy = [...costs]
     costsCopy[index] = costsCopy[index] + cost
@@ -11,18 +11,11 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
   const handleCheckBoxClicked = (featureName: string, cost: number) => {
     if(selectedFeatures[featureName]) {
       delete selectedFeatures[featureName]
-      setTotalCost((prevTotal: number) => {
-        return prevTotal - cost;
-      })
-
     } else {
       selectedFeatures[featureName] = {cost};
-      setTotalCost((prevTotal: number) => {
-        return prevTotal + cost;
-      })
     }
 
-    updateCost(parent, cost)
+    // updateCost(parent, cost)
     onChange(selectedFeatures)
   }
 
@@ -35,7 +28,7 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
     <div className='features'>
       {features.map((feature: IFeature, index: number) => (
         <ul key={index}>
-          <Checkbox 
+          <Checkbox
             label={feature.name}
             cost={costs[index]}
             selected={selectedFeatures[feature.name]}
@@ -49,7 +42,6 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
               parent={index}
               costs = {feature.subFeatures.map(x => x.cost)}
               updateCosts={(costsCopy: any) => updateCosts(costsCopy)}
-              setTotalCost={setTotalCost}
             />
           }
         </ul>
