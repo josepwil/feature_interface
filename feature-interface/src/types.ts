@@ -9,9 +9,8 @@ export interface IProps {
   selectedFeatures: any;
   onChange: any;
   parent: any;
-  costs: any;
+  costs: number[];
   updateCosts: any;
-  setTotalCost: any;
 }
 
 export interface ICheckbox {
