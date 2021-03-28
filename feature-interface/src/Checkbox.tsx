@@ -1,4 +1,4 @@
-import { ICheckbox } from './types'
+import { ICheckbox } from './types';
 
 const Checkbox: React.FC<ICheckbox> = ({selected, label, cost, onChange}) => {
   return (
@@ -12,6 +12,6 @@ const Checkbox: React.FC<ICheckbox> = ({selected, label, cost, onChange}) => {
       <div>{label} ({cost ? `$${cost}` : '-'})</div>
     </div>
   )
-}
+};
 
 export default Checkbox;

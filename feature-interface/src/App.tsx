@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './App.scss';
-
 import FeaturesList from './FeaturesList';
 
 function App() {
@@ -40,20 +39,19 @@ function App() {
     },
     {
       name: 'Feature B',
-      cost: 0,
+      cost: 20,
       subFeatures: []
     },
     {
       name: 'Feature C',
-      cost: 0,
+      cost: 10,
       subFeatures: []
     }
   ]
-  const [state, setState] = useState({
-    selectedFeatures: {},
-  })
-  const [costs, setCosts] = useState(featureData.map(x => x.cost))
-  const [totalCost, setTotalCost] = useState(0)
+
+  const [state, setState] = useState({selectedFeatures: {}});
+  const [costs, setCosts] = useState(featureData.map(feature => feature.cost));
+  const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
     function flatObject(obj: any) {
@@ -61,52 +59,46 @@ function App() {
       const path: string[] = [];
   
       function dig(obj: any) {
-          if (obj !== Object(obj))
-              return flatObject[path.join('.')] = obj;
-      
-          for (let key in obj) {
-              path.push(key);
-              dig(obj[key]);
-              path.pop();
-          }
+        if (obj !== Object(obj)) {
+          return flatObject[path.join('.')] = obj;
+        }
+        for (let key in obj) {
+            path.push(key);
+            dig(obj[key]);
+            path.pop();
+        }
       }
       dig(obj);
       return flatObject;
-  }
-  const flatSelectedFeatures = flatObject(state.selectedFeatures)
-  let newTotal = 0;
-  for (const key in flatSelectedFeatures) {
-    newTotal += flatSelectedFeatures[key]
-  }
+    }
 
-  setTotalCost(newTotal)
-    
-  }, [state])
+    const flatSelectedFeatures = flatObject(state.selectedFeatures);
+    let newTotal = 0;
+    for (const feature in flatSelectedFeatures) {
+      newTotal += flatSelectedFeatures[feature]
+    }
+    setTotalCost(newTotal);
+  }, [state]);
 
 
   return (
-    <div className="App">
+    <div className='App'>
       <header>
         <h3>Subscription Preferences</h3>
       </header>
-
       <main>
         <FeaturesList 
           features={featureData}
           onChange={(selectedFeatures: any) => setState({selectedFeatures})}
           selectedFeatures={state.selectedFeatures}
-          parent={null}
           costs={costs}
           updateCosts={(costs: number[]) => setCosts(costs)}
-          setTotalCost={setTotalCost}
         />
       </main>
-
       <footer>
         <h3>Total: ${totalCost} / mo</h3>
         <button>Save</button>
       </footer>
-      
     </div>
   );
 }

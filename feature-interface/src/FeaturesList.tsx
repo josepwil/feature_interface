@@ -1,27 +1,36 @@
-import { IFeature, IProps } from './types'
-import Checkbox from './Checkbox'
+import { useState } from 'react';
+import { IFeature, IProps } from './types';
+import Checkbox from './Checkbox';
 
-const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, parent, costs, updateCosts }) => {
+const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, costs, updateCosts }) => {
+  const [fCosts, SetFCosts] = useState(costs);
+
   const updateCost = (index: number, cost: number) => {
-    const costsCopy = [...costs]
-    costsCopy[index] = costsCopy[index] + cost
-    updateCosts(costsCopy)
+    const costsCopy = [...fCosts];
+    costsCopy[index] = costsCopy[index] + cost;
+    SetFCosts(costsCopy);
   }
 
-  const handleCheckBoxClicked = (featureName: string, cost: number) => {
+  const handleCheckBoxClicked = (featureName: string, cost: number, index: number) => {
     if(selectedFeatures[featureName]) {
-      delete selectedFeatures[featureName]
+      delete selectedFeatures[featureName];
+      // updateCost(index, -cost) // updates current state and not parent
     } else {
       selectedFeatures[featureName] = {cost};
+      // updateCost(index, cost) // updates current state and not parent
     }
-
-    // updateCost(parent, cost)
-    onChange(selectedFeatures)
+    
+    onChange(selectedFeatures);
   }
+
 
   const handleSubFeaturesListChange = (featureName: string, subSelections: any, index: number) => {
     selectedFeatures[featureName] = subSelections;
-    onChange(selectedFeatures)
+    onChange(selectedFeatures);
+
+    const mostRecentSelection :any  = Object.values(selectedFeatures[featureName]);
+    const mostRecentCost = mostRecentSelection[mostRecentSelection.length - 1].cost;
+    // updateCost(index, mostRecentCost) // only updates immediate parent, incorrect functionality
   }
 
   return (
@@ -30,16 +39,15 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
         <ul key={index}>
           <Checkbox
             label={feature.name}
-            cost={costs[index]}
+            cost={fCosts[index]}
             selected={selectedFeatures[feature.name]}
-            onChange={() => handleCheckBoxClicked(feature.name, costs[index])}
+            onChange={() => handleCheckBoxClicked(feature.name, costs[index], index)}
           />
           {(feature.subFeatures.length > 0 && selectedFeatures[feature.name]) &&
             <FeaturesList 
               features={feature.subFeatures}
               selectedFeatures={selectedFeatures[feature.name]}
               onChange={(subSelections: any) => handleSubFeaturesListChange(feature.name, subSelections, index)}
-              parent={index}
               costs = {feature.subFeatures.map(x => x.cost)}
               updateCosts={(costsCopy: any) => updateCosts(costsCopy)}
             />
@@ -50,4 +58,4 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
   )
 }
 
-export default FeaturesList
+export default FeaturesList;
