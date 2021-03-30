@@ -59,7 +59,7 @@
 
 ### Considerations
 - My implementation contains two recursive calls. One to display the sub features and since the selected features state mirrors the nested nature of the feature/sub-feature relationship another to calculate the total cost. 
-- Whilst these seemed to be the most logical approach due to the nature of the sub-features being arbitrarily nested, there may be some implications for performance. I would interested in spending some more time to see what a viable iterative approach would look like.
+- Whilst these seemed to be the most logical approach due to the nature of the sub-features being arbitrarily nested, there may be some implications for performance. I would be interested in spending some more time to see what a viable iterative approach would look like.
 
 ### Failings
 - Whilst my implementation acheives the task set out in the 'Challenge' paragraph (feature’s sub-features only expand when selected on and only the leaves contribute to the overall
