@@ -5,11 +5,7 @@ import Checkbox from './Checkbox';
 const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, costs, updateCosts }) => {
   const [fCosts, SetFCosts] = useState(costs);
 
-  const updateCost = (index: number, cost: number) => {
-    const costsCopy = [...fCosts];
-    costsCopy[index] = costsCopy[index] + cost;
-    SetFCosts(costsCopy);
-  }
+
 
   const handleCheckBoxClicked = (featureName: string, cost: number, index: number) => {
     if(selectedFeatures[featureName]) {
@@ -27,10 +23,6 @@ const FeaturesList: React.FC<IProps> = ({ features, selectedFeatures, onChange, 
   const handleSubFeaturesListChange = (featureName: string, subSelections: any, index: number) => {
     selectedFeatures[featureName] = subSelections;
     onChange(selectedFeatures);
-
-    const mostRecentSelection :any  = Object.values(selectedFeatures[featureName]);
-    const mostRecentCost = mostRecentSelection[mostRecentSelection.length - 1].cost;
-    // updateCost(index, mostRecentCost) // only updates immediate parent, incorrect functionality
   }
 
   return (
